@@ -50,8 +50,8 @@ func (f File) Open(ctx context.Context, req *fuse.OpenRequest, resp *fuse.OpenRe
 }
 
 func (f File) Setattr(ctx context.Context, req *fuse.SetattrRequest, resp *fuse.SetattrResponse) error {
-	// TODO: Call Truncate, so if we do something like "echo 1 > ./file" it will override whole file
-	return nil
+	// TODO: Change other attributes?
+	return f.client.Truncate(ctx, f.path, int64(req.Size))
 }
 
 func (f File) Fsync(ctx context.Context, req *fuse.FsyncRequest) error {
